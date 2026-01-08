@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Shruti Babu | Primary Healthcare Advocate in Nagpur</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & THEMING --- */
+        :root {
+            /* Light Mode Defaults */
+            --primary: #2A9D8F;
+            --primary-light: #4db6ac;
+            --primary-dark: #21867a;
+            --secondary: #264653;
+            --accent: #E9C46A;
+            --danger: #E76F51;
+            
+            --bg-body: #F8F9FA;
+            --bg-card: #FFFFFF;
+            --bg-nav: rgba(255, 255, 255, 0.95);
+            
+            --text-main: #333333;
+            --text-muted: #666666;
+            --text-light: #FFFFFF;
+            
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --border-color: #dddddd;
+            --transition: all 0.4s ease;
+        }
+
+        /* Dark Mode Overrides */
+        [data-theme="dark"] {
+            --primary: #4db6ac;
+            --primary-dark: #80cbc4;
+            --secondary: #2A9D8F;
+            --accent: #f4a261;
+            
+            --bg-body: #121212;
+            --bg-card: #1E1E1E;
+            --bg-nav: rgba(18, 18, 18, 0.95);
+            
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --text-light: #FFFFFF;
+            
+            --shadow: 0 10px 30px rgba(0,0,0,0.5);
+            --border-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* --- Particle Background Canvas --- */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Behind everything */
+            pointer-events: none; /* Click through */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            transition: color 0.4s ease;
+        }
+
+        [data-theme="dark"] h1, 
+        [data-theme="dark"] h2, 
+        [data-theme="dark"] h3, 
+        [data-theme="dark"] h4 {
+            color: var(--primary-light);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- Loading Animation --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-body);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .pulse-cross {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .pulse-cross::before, .pulse-cross::after {
+            content: '';
+            position: absolute;
+            background: var(--primary);
+            border-radius: 4px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .pulse-cross::before {
+            top: 35px;
+            left: 0;
+            width: 80px;
+            height: 10px;
+        }
+
+        .pulse-cross::after {
+            top: 0;
+            left: 35px;
+            width: 10px;
+            height: 80px;
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-weight: 500;
+            color: var(--secondary);
+            letter-spacing: 2px;
+            animation: fadeText 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.7; box-shadow: 0 0 0 0 rgba(42, 157, 143, 0.7); }
+            70% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 15px rgba(42, 157, 143, 0); }
+            100% { transform: scale(0.95); opacity: 0.7; box-shadow: 0 0 0 0 rgba(42, 157, 143, 0); }
+        }
+
+        @keyframes fadeText {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: var(--bg-nav);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.4s ease;
+            white-space: nowrap;
+        }
+
+        [data-theme="dark"] .logo { color: var(--primary-light); }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-main);
+            position: relative;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            background: transparent;
+            border: 2px solid var(--border-color);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: var(--text-light);
+            border-color: var(--primary);
+        }
+
+        .btn-appoint {
+            padding: 0.5rem 1.2rem;
+            background: var(--primary);
+            color: var(--text-light) !important;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.4);
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-appoint:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.6);
+        }
+
+        .btn-appoint::after { display: none !important; }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 100px 10% 50px; /* Top padding to clear nav */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 2;
+            animation: slideUp 1s ease forwards;
+            opacity: 0;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        [data-theme="dark"] .btn-outline {
+            border-color: var(--primary-light);
+            color: var(--primary-light);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: var(--text-light);
+        }
+
+        /* --- HERO IMAGE WITH MORPH ANIMATION --- */
+        .hero-image {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1.5s ease forwards;
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            /* The specific hardcoded URL */
+            width: 450px;
+            height: 450px;
+            object-fit: cover;
+            
+            /* The Morph Animation */
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: morph 8s ease-in-out infinite;
+            
+            box-shadow: var(--shadow);
+            border: 5px solid var(--bg-card);
+            transition: border-color 0.4s ease;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        /* Background Shapes for Hero */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary);
+            opacity: 0.05;
+            z-index: 1;
+        }
+        .shape-1 { width: 400px; height: 400px; top: -50px; right: -50px; filter: blur(50px); }
+        .shape-2 { width: 200px; height: 200px; bottom: 50px; left: 100px; filter: blur(40px); }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* --- About Section --- */
+        .section {
+            padding: 5rem 10%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about {
+            background: transparent;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-img {
+            flex: 1;
+            position: relative;
+        }
+
+        .about-img img {
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            height: auto;
+        }
+
+        .experience-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--secondary);
+            color: var(--text-light);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        [data-theme="dark"] .experience-badge {
+            background: var(--primary-dark);
+            color: #121212;
+        }
+
+        .experience-badge span {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            right: -20px;
+            width: 50px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* --- Services Section --- */
+        .services {
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: left;
+            border-bottom: 4px solid transparent;
+            border: 1px solid var(--border-color);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(42, 157, 143, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .icon-box {
+            background: var(--primary);
+            color: var(--text-light);
+        }
+
+        /* --- Advocacy Section --- */
+        .advocacy {
+            background: var(--secondary);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4rem 10%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            margin: 0 5%;
+            box-shadow: var(--shadow);
+        }
+
+        [data-theme="dark"] .advocacy {
+            background: var(--primary-dark);
+            color: #121212;
+        }
+
+        .advocacy-content {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .advocacy-content h2 {
+            color: var(--text-light);
+        }
+
+        [data-theme="dark"] .advocacy-content h2 {
+            color: #121212;
+        }
+
+        .advocacy-content p {
+            margin: 1.5rem 0;
+            opacity: 0.9;
+        }
+
+        .advocacy-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat h4 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .advocacy-img {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            z-index: 2;
+        }
+
+        .advocacy-img img {
+            border-radius: 15px;
+            opacity: 0.9;
+            max-width: 80%;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- Contact Section --- */
+        .contact {
+            background: transparent;
+            display: flex;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item i {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .contact-form-container {
+            flex: 1;
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        [data-theme="dark"] .form-group label {
+            color: var(--primary-light);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            outline: none;
+            background: var(--bg-body);
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.1);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--bg-card);
+            color: var(--text-muted);
+            padding: 4rem 10% 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        [data-theme="dark"] .footer-col h3 {
+            color: var(--primary-light);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: var(--text-light);
+            border-color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* --- Utility Classes --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Toast Notification --- */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--secondary);
+            color: var(--text-light);
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-size: 15px;
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+        }
+        
+        [data-theme="dark"] #toast {
+            background-color: var(--primary-dark);
+            color: #121212;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+
+        /* --- RESPONSIVE DESIGN (Mobile Optimization) --- */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 100px;
+                height: auto;
+                padding-bottom: 4rem;
+            }
+
+            .hero-content {
+                margin-top: 3rem;
+            }
+
+            .hero p {
+                margin: 0 auto 2rem auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image img {
+                width: 350px;
+                height: 350px;
+            }
+
+            .about {
+                flex-direction: column;
+            }
+
+            .advocacy {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .advocacy-stats {
+                justify-content: center;
+            }
+
+            .advocacy-img {
+                margin-top: 2rem;
+                justify-content: center;
+            }
+
+            .contact {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 65px; /* Adjusted for compact nav */
+                height: calc(100vh - 65px);
+                background: var(--bg-card);
+                flex-direction: column;
+                width: 100%;
+                padding: 2rem;
+                align-items: center;
+                transition: 0.5s;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                border-left: 1px solid var(--border-color);
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem; /* Smaller font for mobile */
+            }
+
+            .section {
+                padding: 4rem 5%; /* Tighter padding */
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero-image img {
+                width: 280px;
+                height: 280px;
+            }
+            .section-title::after {
+                right: -10px;
+                width: 30px;
+            }
+            .btn-primary, .btn-outline {
+                width: 100%; /* Full width buttons on very small screens */
+            }
+            .advocacy-stats {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particle Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Loading Animation -->
+    <div id="loader">
+        <div class="pulse-cross"></div>
+        <p class="loader-text">DR. SHRUTI BABU</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast">Appointment Request Sent Successfully!</div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-heart-pulse"></i> Dr. Shruti Babu
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#advocacy">Advocacy</a></li>
+            <li><a href="#contact" class="btn-appoint">Book Now</a></li>
+            <li>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+
+        <div class="hero-content">
+            <span class="hero-tag">Primary Healthcare Advocate</span>
+            <h1>Compassionate Care for the Nagpur Community</h1>
+            <p>Dr. Shruti Babu is dedicated to providing accessible, comprehensive, and preventative medical care with a personal touch.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView()">Book Appointment</button>
+                <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView()">Our Services</button>
+            </div>
+        </div>
+        
+        <!-- Hero Image with Hardcoded URL and Morph Animation -->
+        <div class="hero-image">
+            <img src="https://z-cdn-media.chatglm.cn/files/3330b303-6329-49e3-908c-15b077ab8bac.png?auth_key=1867891477-de8953a67f8b43aba11f08e4c2135d37-0-e24c30268d2a9d6b9ae5ea3f1ce00acb" alt="Dr. Shruti Babu in Rural Healthcare">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="about-img reveal">
+            <img src="https://picsum.photos/seed/medical_care/600/500" alt="Medical Care">
+            <div class="experience-badge">
+                <span>10+</span>
+                Years Exp.
+            </div>
+        </div>
+        <div class="about-text reveal">
+            <h2 class="section-title">Meet Dr. Shruti Babu</h2>
+            <p>Based in the heart of Nagpur, Dr. Shruti Babu is a renowned General Practitioner and a staunch advocate for primary healthcare. She believes that the foundation of a healthy society lies in preventative care and early diagnosis.</p>
+            <br>
+            <p>With over a decade of experience serving the local community, she combines modern medical practices with the warmth of traditional family doctoring. Her approach is patient-centric, focusing on holistic well-being rather than just treating symptoms.</p>
+            <br>
+            <div style="margin-top: 1rem;">
+                <i class="fas fa-check-circle" style="color: var(--primary); margin-right: 10px;"></i> Board Certified Physician<br>
+                <i class="fas fa-check-circle" style="color: var(--primary); margin-right: 10px;"></i> Specialized in Family Medicine<br>
+                <i class="fas fa-check-circle" style="color: var(--primary); margin-right: 10px;"></i> Community Health Speaker
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="reveal">
+            <h2 class="section-title">Our Services</h2>
+            <p>Comprehensive healthcare solutions tailored for you and your family.</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="icon-box"><i class="fas fa-stethoscope"></i></div>
+                <h3>General Consultation</h3>
+                <p>Comprehensive health check-ups for all ages, focusing on diagnosis and immediate medical attention.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="icon-box"><i class="fas fa-baby-carriage"></i></div>
+                <h3>Pediatric Care</h3>
+                <p>Specialized care for infants and children, including vaccinations, growth monitoring, and nutrition advice.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="icon-box"><i class="fas fa-user-nurse"></i></div>
+                <h3>Geriatric Health</h3>
+                <p>Dedicated support for elderly patients managing chronic conditions like diabetes, hypertension, and arthritis.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="icon-box"><i class="fas fa-syringe"></i></div>
+                <h3>Vaccinations</h3>
+                <p>Full immunization schedules for children and adults, including flu shots and travel vaccinations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advocacy Section -->
+    <section class="section advocacy" id="advocacy">
+        <div class="bg-shape" style="width: 500px; height: 500px; background: rgba(255,255,255,0.05); top: -100px; left: -100px;"></div>
+        
+        <div class="advocacy-content reveal">
+            <span style="color: var(--accent); font-weight: 600; letter-spacing: 1px;">MISSION & VISION</span>
+            <h2>Advocating for a Healthier Tomorrow</h2>
+            <p>Dr. Shruti Babu is actively involved in health awareness campaigns across Nagpur. She works to educate the public on hygiene, sanitation, and the importance of regular health screenings.</p>
+            <p>Her initiative "Health First Nagpur" aims to provide free basic check-ups to underprivileged sectors of the city.</p>
+            
+            <div class="advocacy-stats">
+                <div class="stat">
+                    <h4>5k+</h4>
+                    <p>Patients Treated</p>
+                </div>
+                <div class="stat">
+                    <h4>50+</h4>
+                    <p>Free Camps</p>
+                </div>
+                <div class="stat">
+                    <h4>10k+</h4>
+                    <p>Lives Impacted</p>
+                </div>
+            </div>
+        </div>
+        <div class="advocacy-img reveal">
+            <img src="https://picsum.photos/seed/community_doctor/500/350" alt="Community Work">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="contact-info reveal">
+            <h2 class="section-title">Visit Us Today</h2>
+            <p style="margin-bottom: 2rem;">Your health is our priority. Reach out to us to schedule an appointment or for any health inquiries.</p>
+            
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Clinic Address</h4>
+                    <p>123, Civil Lines, Near Shankar Nagar,<br>Nagpur, Maharashtra - 440001</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <div>
+                    <h4>Phone Number</h4>
+                    <p>+91 98765 43210</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h4>Email Us</h4>
+                    <p>contact@drshrutibabu.com</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <h4>Clinic Hours</h4>
+                    <p>Mon - Sat: 10:00 AM - 2:00 PM<br>Mon - Sat: 5:00 PM - 8:00 PM</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-container reveal">
+            <form id="appointmentForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label>Service Required</label>
+                    <select>
+                        <option>General Checkup</option>
+                        <option>Pediatric Care</option>
+                        <option>Geriatric Care</option>
+                        <option>Vaccination</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Date</label>
+                    <input type="date" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Confirm Appointment</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <i class="fas fa-heart-pulse"></i> Dr. Shruti Babu
+                </div>
+                <p>Providing compassionate healthcare to the Nagpur community since 2013.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Dr. Shruti Babu. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // --- THEME TOGGLE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const icon = themeToggleBtn.querySelector('i');
+        const html = document.documentElement;
+
+        // Check local storage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            updateIcon(savedTheme);
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // --- PARTICLE SYSTEM LOGIC ---
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        // Resize canvas
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        // Particle Class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1; // Size between 1 and 3
+                this.speedX = Math.random() * 1 - 0.5; // Random speed -0.5 to 0.5
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Wrap around screen
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                // Get color from CSS variable
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                // LIGHTER PARTICLES: Reduced opacity from 0.5 to 0.2
+                ctx.fillStyle = isDark ? 'rgba(77, 182, 172, 0.2)' : 'rgba(42, 157, 143, 0.2)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            const numberOfParticles = (canvas.width * canvas.height) / 12000; // Density (Increased divisor for fewer particles on mobile)
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+
+                // Draw connections (Constellation effect)
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        // LIGHTER LINES: Reduced opacity calculation
+                        const lineOpacity = (1 - distance/120) * 0.15; // Max 0.15 opacity
+                        ctx.strokeStyle = isDark 
+                            ? `rgba(77, 182, 172, ${lineOpacity})` 
+                            : `rgba(42, 157, 143, ${lineOpacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        // --- Loading Animation ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+            }, 1500);
+        });
+
+        // --- Mobile Menu Toggle ---
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // --- Scroll Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- Form Handling ---
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            event.target.reset();
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        // --- Navbar Scroll Effect ---
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+                nav.style.padding = '0.6rem 5%';
+            } else {
+                nav.style.boxShadow = '0 2px 15px rgba(0,0,0,0.05)';
+                nav.style.padding = '1rem 5%';
+            }
+        });
+    </script>
+</body>
+</html>
